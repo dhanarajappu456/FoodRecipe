@@ -7,11 +7,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 // function App() {
 //   return <Animated.View entering={FadeIn} exiting={FadeOut} />;
 // }
-function Categories({
-  activeCategoryIndex,
-  setActiveCategoryIndex,
-  categories,
-}) {
+function Categories({ activeCategoryIndex, handleCategoryChange, categories }) {
   // console.log(
   //   "inside cate",
   //   categories,
@@ -35,7 +31,10 @@ function Categories({
             <TouchableOpacity
               key={index}
               className="flex items-center space-y-1"
-              onPress={() => setActiveCategoryIndex(index)}
+              onPress={() => {
+                handleCategoryChange(cat.strCategory, index);
+                console.log("touch");
+              }}
             >
               <View className={"rounded-full p-[6px] " + activeButtonClass}>
                 <Image
