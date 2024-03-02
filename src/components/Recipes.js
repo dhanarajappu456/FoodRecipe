@@ -1,4 +1,5 @@
 import MasonryList from "@react-native-seoul/masonry-list";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Image, Pressable, Text, View } from "react-native";
 import Animated, { BounceIn } from "react-native-reanimated";
@@ -6,6 +7,7 @@ import { heightPercentageToDP as hp } from "react-native-responsive-screen";
 import Loading from "./Loading";
 function Recipes({ categories, meals }) {
   //   console.log("mone", categories);
+  const navigation = useNavigation();
   return (
     <View className="mx-4 space-y-3">
       <Text style={{ fontSize: hp(3) }} className="font-bold text-neutral-600">
@@ -18,7 +20,9 @@ function Recipes({ categories, meals }) {
             keyExtractor={(item) => item.id}
             numColumns={2}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, i }) => <RecipeCard item={item} index={i} />}
+            renderItem={({ item, i }) => (
+              <RecipeCard item={item} index={i} navigation={navigation} />
+            )}
             //   refreshing={isLoadingNext}
             //   onRefresh={() => refetch({ first: ITEM_CNT })}
             onEndReachedThreshold={0.1}
@@ -39,7 +43,7 @@ function Recipes({ categories, meals }) {
 
 export default Recipes;
 
-const RecipeCard = ({ item, index }) => {
+const RecipeCard = ({ item, index, navigation }) => {
   //   console.log(item.image);
   let isEven = index % 2 == 0;
   //   console.log(index);
@@ -52,8 +56,10 @@ const RecipeCard = ({ item, index }) => {
           paddingRight: isEven ? 7 : 0,
         }}
         className="flex justify-center mb-4 space-y-1 "
+        onPress={() => navigation.navigate("RecipeDetail", { ...item })}
       >
         <Image
+          sharedTransitionTag={item.strMeal}
           style={{
             width: "100%",
             height: index % 3 == 0 ? hp(25) : hp(35),

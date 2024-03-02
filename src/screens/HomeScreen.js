@@ -8,11 +8,11 @@ import {
   View,
 } from "react-native";
 import { BellIcon, MagnifyingGlassIcon } from "react-native-heroicons/outline";
-// ...
+
 import axios from "axios";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import Categories from "./components/Categories";
-import Recipes from "./components/Recipes";
+import Categories from "../components/Categories";
+import Recipes from "../components/Recipes";
 
 function HomeScreen() {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(0);
@@ -57,7 +57,11 @@ function HomeScreen() {
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="dark" />
-      <ScrollView className="space-y-6 pt-10">
+      <ScrollView
+        className="space-y-6 pt-10"
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
         <View className="mx-4 flex-row justify-between">
           <Image
             source={require("../../assets/avat.png")}
